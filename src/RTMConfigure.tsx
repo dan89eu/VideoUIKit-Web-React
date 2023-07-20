@@ -45,6 +45,7 @@ const RtmConfigure = (props: any) => {
   const [rtmStatus, setRtmStatus] = useState<rtmStatusEnum>(
     rtmStatusEnum.offline
   )
+
   const {
     localUid: rtcUid,
     localAudioTrack,
@@ -112,6 +113,13 @@ const RtmConfigure = (props: any) => {
 
     rtmClient.on('ConnectionStateChanged', (state, reason) => {
       console.log(state, reason)
+      console.log('RTM-ConnectionStateChanged: ', state, reason, local)
+      if (rtcProps.enableVideo === false && localVideoTrack) {
+        muteVideo(local, dispatch, localVideoTrack)
+      }
+      if (rtcProps.enableAudio === false && localAudioTrack) {
+        muteAudio(local, dispatch, localAudioTrack)
+      }
     })
 
     rtmClient.on('TokenExpired', async () => {

@@ -5,7 +5,7 @@ import 'agora-react-uikit/dist/index.css'
 const App: React.FunctionComponent = () => {
   const [videocall, setVideocall] = useState(true)
   const [isHost, setHost] = useState(true)
-  const [isPinned, setPinned] = useState(false)
+  const [isPinned, setPinned] = useState(true)
   const [username, setUsername] = useState('')
 
   return (
@@ -27,12 +27,14 @@ const App: React.FunctionComponent = () => {
             </div>
             <AgoraUIKit
               rtcProps={{
-                appId: '<Your Agora App ID>',
+                appId: '9428eb1a503a4ab89143b9ba8ab19bed',
                 channel: 'test',
                 token: null, // add your token if using app in secured mode
                 role: isHost ? 'host' : 'audience',
                 layout: isPinned ? layout.pin : layout.grid,
-                enableScreensharing: true
+                enableScreensharing: false,
+                enableVideo: false,
+                enableAudio: false
               }}
               rtmProps={{ username: username || 'user', displayUsername: true }}
               callbacks={{
